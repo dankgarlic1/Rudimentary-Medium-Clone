@@ -1,7 +1,0 @@
-name = "backend"
-compatibility_date = "2024-08-01"
-
-
- [vars]
- #pool url
-DATABASE_URL="prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiN2IzZjQ5MmEtYzVkMC00NGE3LThjZTItZjk0NGQwZTJiMjNmIiwidGVuYW50X2lkIjoiYWY3YjU0YWM2ZDkzZTk2ZWI5Y2FmMTJjMjBkYzkxNmEyY2JkYzkyOWJiYmE3OWU4NzM5NDQyODJmMWVlZmY2OCIsImludGVybmFsX3NlY3JldCI6Ijk3ZDA1MDYwLTMzY2MtNGRmOC1iMTJmLWY0NmUxM2JhMTk4NCJ9.WdrXNmzmMvVvyF5CAj3xHeN56j51fdOZBQEJdZYcOWY"
