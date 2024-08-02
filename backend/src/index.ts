@@ -1,20 +1,46 @@
 import { Hono } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
-import { decode, sign, verify } from "hono/jwt";
+import { sign, verify } from "hono/jwt";
 
+type Variables = {
+  userId: any;
+};
 const app = new Hono<{
   Bindings: {
     DATABASE_URL: string;
     JWT_SECRET: string;
   };
+  Variables: Variables;
 }>();
 
-app.post("api/v1/user/signup", async (c) => {
+app.use("/api/v1/blog/*", async (c, next) => {
+  try {
+    const token = c.req.header("Authorization") || "";
+
+    if (!token) {
+      c.status(401);
+      return c.json({ error: "unauthorized" });
+    }
+    const response = await verify(token, c.env.JWT_SECRET);
+    if (!response) {
+      c.status(401);
+      return c.json({ error: "unauthorized" });
+    } else {
+      c.set("userId", response.id);
+      await next();
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.post("/api/v1/user/signup", async (c) => {
   try {
     const prisma = new PrismaClient({
       datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
+
     const body = await c.req.json();
     const user = await prisma.user.create({
       data: {
@@ -23,8 +49,8 @@ app.post("api/v1/user/signup", async (c) => {
         password: body.password,
       },
     });
-    const jwt = await sign({ id: user.id }, c.env.JWT_SECRET);
-    return c.json({ jwt });
+    const token = await sign({ id: user.id }, c.env.JWT_SECRET);
+    return c.json({ jwt: token });
   } catch (error) {
     console.log(error);
     return c.json({ error: "error while signing up" });
@@ -32,7 +58,7 @@ app.post("api/v1/user/signup", async (c) => {
   // return c.text("signup route");
 });
 
-app.post("api/v1/user/signin", async (c) => {
+app.post("/api/v1/user/signin", async (c) => {
   try {
     const prisma = new PrismaClient({
       datasourceUrl: c.env.DATABASE_URL,
@@ -47,8 +73,8 @@ app.post("api/v1/user/signin", async (c) => {
       c.status(403);
       return c.json({ error: "user not found" });
     } else {
-      const jwt = await sign({ id: user.id }, c.env.JWT_SECRET);
-      return c.json({ jwt });
+      const token = await sign({ id: user.id }, c.env.JWT_SECRET);
+      return c.json({ token: token });
     }
   } catch (error) {
     c.status(403);
@@ -58,20 +84,23 @@ app.post("api/v1/user/signin", async (c) => {
   }
 });
 
-app.post("api/v1/blog", (c) => {
+app.post("/api/v1/blog", (c) => {
+  const token = c.get("userId");
+  console.log(`Token is: ${token}`);
+
   return c.text("blog route");
 });
-app.put("api/v1/blog", (c) => {
+app.put("/api/v1/blog", (c) => {
   return c.text("signup route");
 });
-app.get("api/v1/blog/:id", (c) => {
+app.get("/api/v1/blog/:id", (c) => {
   const id = c.req.param("id");
   console.log(id);
 
   return c.text("get blog");
 });
 
-app.get("api/v1/blog/buld", (c) => {
+app.get("/api/v1/blog/bulk", (c) => {
   return c.text("get blgs in bulk");
 });
 
