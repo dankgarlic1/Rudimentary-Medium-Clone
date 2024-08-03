@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { verify } from "hono/jwt";
+import { blogPostInput, blogUpdateInput } from "@dankgarlic1/medium-blog";
 
 type Variables = {
   userId: any;
@@ -33,7 +34,7 @@ blogRouter.use("/*", async (c, next) => {
     await next();
   } catch (error) {
     console.error("Middleware error:", error);
-    return c.json({ error: "Internal server error" }, 500);
+    return c.json({ error: "You are not Logged In" }, 403);
   }
 });
 
@@ -44,6 +45,11 @@ blogRouter.post("/", async (c) => {
       datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
     const body = await c.req.json();
+    const { success } = blogPostInput.safeParse(body);
+    if (!success) {
+      c.status(400);
+      return c.json({ error: "invalid input" });
+    }
     const post = await prisma.post.create({
       data: {
         title: body.title,
@@ -65,10 +71,19 @@ blogRouter.put("/", async (c) => {
       datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
     const body = await c.req.json();
-
-    if (!body.id || !body.title || !body.content) {
-      return c.json({ error: "Missing required fields" }, 400);
+    const { success } = blogUpdateInput.safeParse(body);
+    if (!success) {
+      c.status(400);
+      return c.json({ error: "invalid input" });
     }
+
+    // if (!body.id || !body.title || !body.content) {
+    //   return c.json({ error: "Missing required fields" }, 400);
+    // }
+    // console.log(`This is id from body ${body.id}`);
+    // console.log(`This is User Id ${userId}`);
+
+    // console.log(`This is authorId from body ${body.authorId}`);
 
     const update = await prisma.post.update({
       where: {
