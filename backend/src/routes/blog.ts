@@ -1,8 +1,7 @@
 import { Hono } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
-import { sign, verify } from "hono/jwt";
-import { date } from "zod";
+import { verify } from "hono/jwt";
 
 type Variables = {
   userId: any;
@@ -89,7 +88,7 @@ blogRouter.put("/", async (c) => {
 });
 blogRouter.get("/bulk", async (c) => {
   try {
-    console.log("Called all post get api");
+    // console.log("Called all post get api");
 
     const prisma = new PrismaClient({
       datasourceUrl: c.env.DATABASE_URL,
@@ -104,7 +103,7 @@ blogRouter.get("/bulk", async (c) => {
 
 blogRouter.get("/:id", async (c) => {
   try {
-    console.log("Called specific post get api");
+    // console.log("Called specific post get api");
 
     const id = c.req.param("id");
     const prisma = new PrismaClient({
