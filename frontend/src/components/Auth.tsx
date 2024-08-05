@@ -3,7 +3,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { SignupInput } from "@dankgarlic1/medium-blog";
 import { InputBox } from "./shared/InputBox";
-export const Auth = () => {
+import { Button } from "./shared/Button";
+export const Auth = ({ type }: { type: "signup" | "signin" }) => {
   const [postInputs, setPostInputs] = useState<SignupInput>({
     name: "",
     email: "",
@@ -11,52 +12,60 @@ export const Auth = () => {
   });
   return (
     <div className="h-screen flex justify-center flex-col">
-      <div className="flex justify-center">
+      <div className="flex justify-center ">
         <div>
-          <div className="font-bold  text-3xl">Create an Account</div>
-          <div className="text-slate-400 ">
-            Already have an account?{" "}
-            <Link to={"/signin"} className="underline ">
-              Login
-            </Link>
+          <div className="px-10">
+            <div className="font-bold  text-3xl">Create an Account</div>
+            <div className="text-slate-400 text-center">
+              {type === "signin"
+                ? "Don't have an account?"
+                : "Already have an account?"}
+              <Link
+                to={type === "signin" ? "/signup" : "/signin"}
+                className="underline "
+              >
+                {type === "signin" ? "Sign Up" : "Sign In"}
+              </Link>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="flex justify-center">
-        <div>
-          <InputBox
-            type="text"
-            title="Name"
-            placeholder="Enter your name"
-            onChange={(e) => {
-              setPostInputs((c) => ({
-                ...c,
-                name: e.target.value,
-              }));
-            }}
-          />
-          <InputBox
-            type="text"
-            title="Email"
-            placeholder="Enter your email"
-            onChange={(e) => {
-              setPostInputs((c) => ({
-                ...c,
-                email: e.target.value,
-              }));
-            }}
-          />
-          <InputBox
-            type="password"
-            title="Password"
-            placeholder="Enter your password"
-            onChange={(e) => {
-              setPostInputs((c) => ({
-                ...c,
-                password: e.target.value,
-              }));
-            }}
-          />
+          <div className="pt-4">
+            <InputBox
+              type="text"
+              title="Name"
+              placeholder="Enter your name"
+              onChange={(e) => {
+                setPostInputs((c) => ({
+                  ...c,
+                  name: e.target.value,
+                }));
+              }}
+            />
+            <InputBox
+              type="text"
+              title="Email"
+              placeholder="Enter your email"
+              onChange={(e) => {
+                setPostInputs((c) => ({
+                  ...c,
+                  email: e.target.value,
+                }));
+              }}
+            />
+            <InputBox
+              type="password"
+              title="Password"
+              placeholder="Enter your password"
+              onChange={(e) => {
+                setPostInputs((c) => ({
+                  ...c,
+                  password: e.target.value,
+                }));
+              }}
+            />
+          </div>
+          <div className="pt-8">
+            <Button authType={type === "signup" ? "Sign up" : "Sign in"} />
+          </div>
         </div>
       </div>
     </div>

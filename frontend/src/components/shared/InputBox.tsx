@@ -8,7 +8,7 @@ interface Props {
 export const InputBox = (props: Props) => {
   return (
     <div>
-      <label className="block mb-2 text-sm font-medium text-black">
+      <label className="block mb-2 text-sm font-semibold text-black pt-4">
         {props.title}
       </label>
       <input
