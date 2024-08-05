@@ -15,7 +15,11 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
       <div className="flex justify-center ">
         <div>
           <div className="px-10">
-            <div className="font-bold  text-3xl">Create an Account</div>
+            <div className="font-bold  text-3xl">
+              {type === "signin"
+                ? "Login to your account"
+                : "Create an account"}
+            </div>
             <div className="text-slate-400 text-center">
               {type === "signin"
                 ? "Don't have an account?"
@@ -29,17 +33,19 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
             </div>
           </div>
           <div className="pt-4">
-            <InputBox
-              type="text"
-              title="Name"
-              placeholder="Enter your name"
-              onChange={(e) => {
-                setPostInputs((c) => ({
-                  ...c,
-                  name: e.target.value,
-                }));
-              }}
-            />
+            {type === "signup" ? (
+              <InputBox
+                type="text"
+                title="Name"
+                placeholder="Enter your name"
+                onChange={(e) => {
+                  setPostInputs((c) => ({
+                    ...c,
+                    name: e.target.value,
+                  }));
+                }}
+              />
+            ) : null}
             <InputBox
               type="text"
               title="Email"
