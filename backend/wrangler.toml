@@ -5,4 +5,4 @@ compatibility_date = "2024-08-01"
  [vars]
  #pool url
 DATABASE_URL="prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiN2NjNzcxMzAtYjAyZi00NGRkLTk0ZDctY2E5YTM0MGM2OTIwIiwidGVuYW50X2lkIjoiYWY3YjU0YWM2ZDkzZTk2ZWI5Y2FmMTJjMjBkYzkxNmEyY2JkYzkyOWJiYmE3OWU4NzM5NDQyODJmMWVlZmY2OCIsImludGVybmFsX3NlY3JldCI6Ijk3ZDA1MDYwLTMzY2MtNGRmOC1iMTJmLWY0NmUxM2JhMTk4NCJ9.YwnL2av3JcVna0yv4p_oTQPS9dG2qpmnf8FF01vRdBM"
-JWT_SECRET="I love Martial Arts"
+JWT_SECRET="I love Martial Arts in Production Environment"

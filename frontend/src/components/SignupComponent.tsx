@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { InputBox } from "./shared/InputBox";
 import { Button } from "./shared/Button";
 import { SignupInput } from "@dankgarlic1/medium-blog";
+import { signupRequest } from "../helper/api-communicator";
+import toast from "react-hot-toast";
 
 export const SignupComponent = () => {
   const [postInputs, setPostInputs] = useState<SignupInput>({
@@ -10,6 +12,23 @@ export const SignupComponent = () => {
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
+  const handleSignup = async () => {
+    try {
+      toast.loading("Signing Up", { id: "signup" });
+      await signupRequest(
+        postInputs.name,
+        postInputs.email,
+        postInputs.password
+      );
+
+      toast.success("Signed Up Successfully", { id: "signup" });
+      navigate("/blogs");
+    } catch (error) {
+      console.log(error);
+      toast.error("Signing Up Failed", { id: "signup" });
+    }
+  };
 
   return (
     <div className="h-screen flex justify-center flex-col">
@@ -60,7 +79,7 @@ export const SignupComponent = () => {
             />
           </div>
           <div className="pt-8">
-            <Button authType="Sign up" />
+            <Button authType="Sign up" onClick={handleSignup} />
           </div>
         </div>
       </div>

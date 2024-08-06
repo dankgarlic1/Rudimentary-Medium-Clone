@@ -26,6 +26,14 @@ userRouter.post("/signup", async (c) => {
       c.status(400);
       return c.json({ error: "invalid input" });
     }
+    const existingUser = await prisma.user.findUnique({
+      where: { email: body.email },
+    });
+
+    if (existingUser) {
+      c.status(409); // Conflict
+      return c.json({ error: "Email already registered" });
+    }
 
     const user = await prisma.user.create({
       data: {

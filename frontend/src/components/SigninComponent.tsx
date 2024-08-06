@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { InputBox } from "./shared/InputBox";
 import { Button } from "./shared/Button";
 import { SignupInput } from "@dankgarlic1/medium-blog";
+import toast from "react-hot-toast";
+import { signinRequest } from "../helper/api-communicator";
 
 export const SigninComponent = () => {
   const [postInputs, setPostInputs] = useState<SignupInput>({
@@ -10,7 +12,19 @@ export const SigninComponent = () => {
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
+  const handleSignin = async () => {
+    try {
+      toast.loading("Signing In", { id: "signin" });
+      await signinRequest(postInputs.email, postInputs.password);
 
+      toast.success("Signed In Successfully", { id: "signin" });
+      navigate("/blogs");
+    } catch (error) {
+      console.log(error);
+      toast.error("Signing In Failed", { id: "signin" });
+    }
+  };
   return (
     <div className="h-screen flex justify-center flex-col">
       <div className="flex justify-center ">
@@ -49,7 +63,7 @@ export const SigninComponent = () => {
             />
           </div>
           <div className="pt-8">
-            <Button authType="Sign in" />
+            <Button authType="Sign in" onClick={handleSignin} />
           </div>
         </div>
       </div>
