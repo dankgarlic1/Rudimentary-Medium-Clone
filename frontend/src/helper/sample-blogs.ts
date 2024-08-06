@@ -1,6 +1,13 @@
 export const SampleBlogs = [
   {
     authorName: "Harshit Raizada",
+    title:
+      "How I Accidentally Became a Master of Awkward Situations and What I Learned About Embracing the Cringe",
+    content:
+      "I never set out to become a master of awkward situations, but life had other plans. From accidentally sending a text meant for my friend to my boss to showing up at a formal event in my pajamas because I thought it was a 'comfy chic' theme, I’ve had my fair share of cringe-worthy moments. The best part? I’ve learned to embrace these blunders with a sense of humor. Every embarrassing mishap is a chance to laugh at myself and connect with others who’ve had their own moments of awkwardness. Turns out, being comfortable with the cringe is the key to surviving social interactions with your dignity somewhat intact. So here’s to all the moments that make us squirm – they’re just another part of life’s hilarious rollercoaster. Embrace the awkwardness and remember that everyone else is just as human as you are.",
+  },
+  {
+    authorName: "Harshit Raizada",
     title: "Pookie's Grand Entrance",
     content:
       "If you thought your life was a chaotic mess, meet Pookie, who’s got a PhD in disaster management. Picture this: Pookie stumbles into a fancy gala wearing flip-flops and a bathrobe, while the rest of the guests look like they've just walked out of a high-fashion magazine. The best part? Pookie’s not even fazed by the judgmental stares, strutting around like he’s the king of the world. Who knew that a blend of confidence and cluelessness could make someone the star of the evening? If Pookie can make fashion faux pas look like a statement, imagine what he could do with your life’s messes. Sometimes, embracing the chaos is all you need to become the talk of the town. And let’s be honest, who doesn't love a good laugh at someone else’s expense?",
