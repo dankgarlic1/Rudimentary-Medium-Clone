@@ -13,7 +13,7 @@ export const BlogCard = (props: Props) => {
   return (
     <div className="border-b border-slate-400 p-4">
       <div className="flex ">
-        <Avatar initials={initials} />{" "}
+        <Avatar initials={initials} size={6} />{" "}
         <div className="font-extralight pl-2 text-sm flex justify-center flex-col">
           {props.authorName}
         </div>{" "}
