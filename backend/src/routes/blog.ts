@@ -108,7 +108,18 @@ blogRouter.get("/bulk", async (c) => {
     const prisma = new PrismaClient({
       datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
-    const response = await prisma.post.findMany();
+    const response = await prisma.post.findMany({
+      select: {
+        title: true,
+        content: true,
+        id: true,
+        author: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
     return c.json(response);
   } catch (error) {
     console.error("BULK GET error:", error);

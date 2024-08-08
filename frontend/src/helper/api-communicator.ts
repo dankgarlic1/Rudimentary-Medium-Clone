@@ -18,8 +18,9 @@ export const signupRequest = async (
       throw new Error("Unable to Signup");
     }
 
-    const jwt = response.data;
-    localStorage.setItem("token", jwt);
+    const { token } = response.data;
+    // console.log("Token:", jwt);
+    localStorage.setItem("token", token);
   } catch (error) {
     console.log(error);
     throw error;
@@ -35,10 +36,33 @@ export const signinRequest = async (email: string, password: string) => {
       throw new Error("Unable to Signin");
     }
 
-    const jwt = response.data;
-    return jwt;
+    const { token } = response.data;
+    console.log("Token:", token);
+    localStorage.setItem("token", token);
+    return token;
   } catch (error) {
     console.log(error);
+    throw error;
+  }
+};
+
+export const getBlogs = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("No token found");
+    }
+
+    const response = await axios.get(`${backend_url}/blog/bulk`, {
+      headers: { Authorization: token },
+    });
+    if (response.status !== 200) {
+      throw new Error("Unable to Signin");
+    }
+    return response;
+  } catch (error) {
+    console.log(error);
+
     throw error;
   }
 };
