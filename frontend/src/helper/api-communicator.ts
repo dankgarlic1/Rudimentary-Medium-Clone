@@ -37,7 +37,7 @@ export const signinRequest = async (email: string, password: string) => {
     }
 
     const { token } = response.data;
-    console.log("Token:", token);
+    // console.log("Token:", token);
     localStorage.setItem("token", token);
     return token;
   } catch (error) {
