@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getBlogs } from "../helper/api-communicator";
+import { getBlog, getBlogs } from "../helper/api-communicator";
 import { AxiosResponse } from "axios";
 interface Blog {
   id: string;
@@ -29,4 +29,24 @@ export const useBlogs = () => {
     fetchBlogs();
   }, []);
   return { loading, blogs };
+};
+
+export const useBlog = (id: string) => {
+  const [loading, setLoading] = useState(true);
+  const [blog, setBlog] = useState<Blog | null>(null);
+
+  useEffect(() => {
+    const fetchBlog = async () => {
+      try {
+        const response: AxiosResponse<Blog> = await getBlog({ id });
+        setBlog(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
+    };
+    fetchBlog();
+  }, [id]);
+  return { loading, blog };
 };

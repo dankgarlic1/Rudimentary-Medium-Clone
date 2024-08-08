@@ -57,7 +57,28 @@ export const getBlogs = async () => {
       headers: { Authorization: token },
     });
     if (response.status !== 200) {
-      throw new Error("Unable to Signin");
+      throw new Error("Unable to Fetch tokens");
+    }
+    return response;
+  } catch (error) {
+    console.log(error);
+
+    throw error;
+  }
+};
+
+export const getBlog = async ({ id }: { id: string }) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("No token found");
+    }
+
+    const response = await axios.get(`${backend_url}/blog/${id}`, {
+      headers: { Authorization: token },
+    });
+    if (response.status !== 200) {
+      throw new Error("Unable to fetch");
     }
     return response;
   } catch (error) {
