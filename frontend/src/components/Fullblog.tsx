@@ -1,13 +1,12 @@
 import { GetInitials } from "../helper/get-initials";
 import { Blog } from "../hooks";
-import { Appbar } from "./Appbar";
+
 import Avatar from "./shared/Avatar";
 
 export const FullBlogCard = ({ blog }: { blog: Blog }) => {
   const initial = GetInitials(blog.author.name);
   return (
     <div>
-      <Appbar />
       <div className="flex justify center">
         <div className="grid grid-cols-12 px-10 w-full max-w-screen-2xl">
           <div className=" col-span-8">

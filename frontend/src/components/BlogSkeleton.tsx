@@ -1,5 +1,3 @@
-import React from "react";
-
 export const BlogSkeleton = () => {
   return (
     <div className="flex justify-center">
