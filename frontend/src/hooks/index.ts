@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getBlog, getBlogs } from "../helper/api-communicator";
 import { AxiosResponse } from "axios";
-import toast from "react-hot-toast";
+
 export interface Blog {
   id: string;
   title: string;

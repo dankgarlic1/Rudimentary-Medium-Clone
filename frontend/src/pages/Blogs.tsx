@@ -15,7 +15,7 @@ const Blogs = () => {
   //     toast.dismiss("fetchBlogs");
   //   }
   // }, [loading]);
-  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+  const [, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
   const [secondsLeft, setSecondsLeft] = useState(30);
 
   useEffect(() => {
