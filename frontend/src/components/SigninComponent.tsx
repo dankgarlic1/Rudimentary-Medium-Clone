@@ -33,7 +33,7 @@ export const SigninComponent = () => {
             <div className="font-bold text-3xl">Login to your account</div>
             <div className="text-slate-400 text-center">
               Don't have an account?
-              <Link to="/signup" className="underline">
+              <Link to="/" className="underline">
                 Sign Up
               </Link>
             </div>

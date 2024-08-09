@@ -13,7 +13,7 @@ interface Props {
 export const BlogCard = (props: Props) => {
   const initials = GetInitials(props.authorName);
   return (
-    <Link to={`blog/${props.id}`}>
+    <Link to={`${props.id}`}>
       <div className="border-b border-slate-400 p-4">
         <div className="flex ">
           <Avatar initials={initials} size={1.5} />{" "}
