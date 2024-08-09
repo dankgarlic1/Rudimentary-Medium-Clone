@@ -10,7 +10,9 @@ const Blogs = () => {
   const { loading, blogs } = useBlogs();
   const skeletons = Array.from({ length: 10 });
 
-  const [, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+  const [, setTimeoutId] = useState<ReturnType<typeof setInterval> | null>(
+    null
+  );
   const [secondsLeft, setSecondsLeft] = useState(30);
 
   useEffect(() => {
