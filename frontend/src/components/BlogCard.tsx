@@ -24,7 +24,7 @@ export const BlogCard = (props: Props) => {
             <BlackCircle />
           </div>
           <div className="pl-2 font-thin text-slate-500 text-sm flex justify-center flex-col">
-            {props.publishedDate}
+            Posted on August 15 2024
           </div>
         </div>
         <div className="text-xl font-semibold pt-2">{props.title}</div>

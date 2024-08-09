@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Appbar } from "../components/Appbar";
 import BlogCard from "../components/BlogCard";
 // import { SampleBlogs } from "../helper/sample-blogs";
@@ -6,16 +6,77 @@ import { useBlogs } from "../hooks";
 import toast from "react-hot-toast";
 
 const Blogs = () => {
-  // const sampleBlog = SampleBlogs;
   const { loading, blogs } = useBlogs();
-  // Show a loading toast when fetching blogs
+  // // Show a loading toast when fetching blogs
+  // useEffect(() => {
+  //   if (loading) {
+  //     toast.loading("Fetching Blogs for you", { id: "fetchBlogs" });
+  //   } else {
+  //     toast.dismiss("fetchBlogs");
+  //   }
+  // }, [loading]);
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+  const [secondsLeft, setSecondsLeft] = useState(30);
+
   useEffect(() => {
     if (loading) {
-      toast.loading("Fetching Blogs for you", { id: "fetchBlogs" });
+      const toastId = "fetchBlogs";
+
+      // Show the initial loading toast
+      toast.loading(`Fetching Blogs for you. Time remaining: ${secondsLeft}s`, {
+        id: toastId,
+      });
+
+      // Function to update the toast message with remaining time
+      const updateToastMessage = () => {
+        toast.loading(
+          `Fetching Blogs for you. Time remaining: ${secondsLeft}s`,
+          {
+            id: toastId,
+          }
+        );
+      };
+
+      // Start countdown timer
+      const timer = setInterval(() => {
+        setSecondsLeft((prev) => {
+          const newSeconds = prev - 1;
+          if (newSeconds <= 0) {
+            clearInterval(timer);
+            toast.dismiss(toastId);
+            toast.error(
+              "Fetching Blogs took too long. Please try again later."
+            );
+
+            return 0;
+          } else {
+            updateToastMessage();
+            return newSeconds;
+          }
+        });
+      }, 1000);
+
+      // Clear the timer and toast if loading finishes
+      const clearLoading = () => {
+        clearInterval(timer);
+        toast.dismiss(toastId);
+      };
+
+      if (!loading) {
+        clearLoading();
+      }
+
+      // Save timeoutId to clear it later if needed
+      setTimeoutId(timer);
+      return () => {
+        clearInterval(timer); // Cleanup on component unmount
+        toast.dismiss(toastId);
+      };
     } else {
       toast.dismiss("fetchBlogs");
     }
   }, [loading]);
+
   return (
     <div>
       <Appbar />

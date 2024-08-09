@@ -79,7 +79,7 @@ export const SignupComponent = () => {
             />
           </div>
           <div className="pt-8">
-            <Button authType="Sign up" onClick={handleSignup} />
+            <Button buttonName="Sign up" onClick={handleSignup} />
           </div>
         </div>
       </div>

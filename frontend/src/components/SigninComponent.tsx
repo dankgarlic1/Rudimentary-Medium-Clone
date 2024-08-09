@@ -12,6 +12,7 @@ export const SigninComponent = () => {
     email: "",
     password: "",
   });
+
   const navigate = useNavigate();
   const handleSignin = async () => {
     try {
@@ -63,7 +64,7 @@ export const SigninComponent = () => {
             />
           </div>
           <div className="pt-8">
-            <Button authType="Sign in" onClick={handleSignin} />
+            <Button buttonName="Sign in" onClick={handleSignin} />
           </div>
         </div>
       </div>

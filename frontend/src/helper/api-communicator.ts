@@ -36,10 +36,11 @@ export const signinRequest = async (email: string, password: string) => {
       throw new Error("Unable to Signin");
     }
 
-    const { token } = response.data;
+    const { token, name } = response.data;
     // console.log("Token:", token);
     localStorage.setItem("token", token);
-    return token;
+    localStorage.setItem("userName", name);
+    return { token, name };
   } catch (error) {
     console.log(error);
     throw error;
@@ -81,6 +82,31 @@ export const getBlog = async ({ id }: { id: string }) => {
       throw new Error("Unable to fetch");
     }
     return response;
+  } catch (error) {
+    console.log(error);
+
+    throw error;
+  }
+};
+
+export const postBlog = async (title: string, content: string) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("No token found");
+    }
+
+    const response = await axios.post(
+      `${backend_url}/blog`,
+      { title, content },
+      {
+        headers: { Authorization: token },
+      }
+    );
+    if (response.status !== 200) {
+      throw new Error("Unable to post blog");
+    }
+    return response.data;
   } catch (error) {
     console.log(error);
 

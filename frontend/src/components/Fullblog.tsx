@@ -12,7 +12,7 @@ export const FullBlogCard = ({ blog }: { blog: Blog }) => {
         <div className="grid grid-cols-12 px-10 w-full max-w-screen-2xl">
           <div className=" col-span-8">
             <div className="text-2xl font-extrabold pt-12">{blog.title}</div>
-            <div className="text-slate-500 pt-2">Posted on August 14 2024</div>
+            <div className="text-slate-500 pt-2">Posted on August 15 2024</div>
             <div className="pt-4">{blog.content}</div>
           </div>
           <div className="col-span-4">

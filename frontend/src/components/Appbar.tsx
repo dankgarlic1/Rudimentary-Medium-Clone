@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import Avatar from "./shared/Avatar";
+import { GetInitials } from "../helper/get-initials";
 
 export const Appbar = () => {
+  const userName = localStorage.getItem("userName");
+  const initial = GetInitials(userName || "");
   return (
     <div className="border-b flex justify-between px-10 py-4">
       <Link to={"/blogs"} className="flex items-center">
@@ -27,7 +30,7 @@ export const Appbar = () => {
             New
           </button>
         </Link>
-        <Avatar initials={"HR"} size={2.1} />
+        <Avatar initials={initial} size={2.1} />
       </div>
     </div>
   );

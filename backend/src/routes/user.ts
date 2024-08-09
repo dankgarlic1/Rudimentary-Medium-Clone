@@ -73,7 +73,10 @@ userRouter.post("/signin", async (c) => {
       return c.json({ error: "user not found" });
     } else {
       const token = await sign({ id: user.id }, c.env.JWT_SECRET);
-      return c.json({ token: token });
+      return c.json({
+        token: token,
+        name: user.name,
+      });
     }
   } catch (error) {
     c.status(403);
