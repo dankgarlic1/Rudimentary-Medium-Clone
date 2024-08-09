@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import toast from "react-hot-toast";
 import { useBlog } from "../hooks";
+import { FullBlogCard } from "../components/Fullblog";
 
 export const Blog = () => {
   const { id } = useParams();
@@ -18,10 +19,11 @@ export const Blog = () => {
   if (!blog) return <div>Blog not found</div>;
   return (
     <div>
-      <h1>{blog.title}</h1>
+      <FullBlogCard blog={blog} />
+      {/* <h1>{blog.title}</h1>
       <p>{blog.content}</p>
       <p>Published on: {blog.publishedDate}</p>
-      <p>Author: {blog.author.name}</p>
+      <p>Author: {blog.author.name}</p> */}
     </div>
   );
 };

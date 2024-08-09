@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getBlog, getBlogs } from "../helper/api-communicator";
 import { AxiosResponse } from "axios";
-interface Blog {
+export interface Blog {
   id: string;
   title: string;
   content: string;
