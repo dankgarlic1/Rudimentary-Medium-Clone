@@ -24,7 +24,7 @@ export const FullBlogCard = ({ blog }: { blog: Blog }) => {
               <div>
                 <div className="text-lg font-bold">{blog.author.name}</div>
                 <div className="pt-2 text-slate-500">
-                  random bio xshsijdijsdsojdiasjljaljdisaj
+                  I build things with more passion than a caffeinated squirrel.
                 </div>
               </div>
             </div>

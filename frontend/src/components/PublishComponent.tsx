@@ -4,17 +4,20 @@ import { useState } from "react";
 import { Button } from "./shared/Button";
 import toast from "react-hot-toast";
 import { postBlog } from "../helper/api-communicator";
+import { useNavigate } from "react-router-dom";
 
 export const PublishComponent = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const navigate = useNavigate();
   const handlePublish = async () => {
     try {
       toast.loading("Posting Blog", { id: "postBlog" });
-      await postBlog(title, content);
-
+      const response = await postBlog(title, content);
+      const { postId } = response;
       toast.success("Blog posted Successfully", { id: "postBlog" });
       // navigate("/blogs");
+      navigate(`/blogs/${postId}`);
     } catch (error) {
       console.log(error);
       toast.error("Posting Blog Failed", { id: "postBlog" });

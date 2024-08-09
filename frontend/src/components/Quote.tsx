@@ -13,7 +13,7 @@ export const Quote = () => {
             Harshit Raizada
           </div>
           <div className="font-light text-left text-slate-400 text-sm">
-            CEO | Rushmore Corps
+            CEO | Ligma Corporation
           </div>
         </div>
       </div>
