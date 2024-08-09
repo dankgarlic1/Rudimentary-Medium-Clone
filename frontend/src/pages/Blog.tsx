@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useBlog } from "../hooks";
 import { FullBlogCard } from "../components/Fullblog";
+import { BlogSkeleton } from "../components/BlogSkeleton";
 
 export const Blog = () => {
   const { id } = useParams();
@@ -75,7 +76,12 @@ export const Blog = () => {
     }
   }, [loading]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div className="mt-20">
+        <BlogSkeleton />
+      </div>
+    );
   if (!blog) return <div>Blog not found</div>;
 
   return (

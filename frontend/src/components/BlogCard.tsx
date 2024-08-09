@@ -12,6 +12,7 @@ interface Props {
 }
 export const BlogCard = (props: Props) => {
   const initials = GetInitials(props.authorName);
+
   return (
     <Link to={`${props.id}`}>
       <div className="border-b border-slate-400 p-4">

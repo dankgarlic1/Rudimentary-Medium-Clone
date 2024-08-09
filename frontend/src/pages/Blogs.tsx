@@ -1,20 +1,15 @@
 import { useEffect, useState } from "react";
 import { Appbar } from "../components/Appbar";
 import BlogCard from "../components/BlogCard";
-// import { SampleBlogs } from "../helper/sample-blogs";
+
 import { useBlogs } from "../hooks";
 import toast from "react-hot-toast";
+import { BlogsSkeleton } from "../components/BlogsSkeleton";
 
 const Blogs = () => {
   const { loading, blogs } = useBlogs();
-  // // Show a loading toast when fetching blogs
-  // useEffect(() => {
-  //   if (loading) {
-  //     toast.loading("Fetching Blogs for you", { id: "fetchBlogs" });
-  //   } else {
-  //     toast.dismiss("fetchBlogs");
-  //   }
-  // }, [loading]);
+  const skeletons = Array.from({ length: 10 });
+
   const [, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
   const [secondsLeft, setSecondsLeft] = useState(30);
 
@@ -82,16 +77,20 @@ const Blogs = () => {
       <Appbar />
       <div className="flex justify-center ">
         <div className="flex justify-center max-w-xl flex-col">
-          {blogs.map((blog) => (
-            <BlogCard
-              key={blog.id}
-              id={blog.id}
-              authorName={blog.author.name}
-              title={blog.title}
-              content={blog.content}
-              publishedDate={blog.publishedDate}
-            />
-          ))}
+          {loading
+            ? skeletons.map((_: any, index: any) => (
+                <BlogsSkeleton key={index} />
+              ))
+            : blogs.map((blog) => (
+                <BlogCard
+                  key={blog.id}
+                  id={blog.id}
+                  authorName={blog.author.name}
+                  title={blog.title}
+                  content={blog.content}
+                  publishedDate={blog.publishedDate}
+                />
+              ))}
           {/* <BlogCard
             authorName={sampleBlog[0].authorName}
             title={sampleBlog[0].title}
