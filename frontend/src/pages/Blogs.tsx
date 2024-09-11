@@ -74,6 +74,8 @@ const Blogs = () => {
     }
   }, [loading]);
 
+  // Reverse the blogs array to show the latest blog at the top
+  const reversedBlogs = [...blogs].reverse();
   return (
     <div>
       <Appbar />
@@ -83,7 +85,7 @@ const Blogs = () => {
             ? skeletons.map((_: any, index: any) => (
                 <BlogsSkeleton key={index} />
               ))
-            : blogs.map((blog) => (
+            : reversedBlogs.map((blog) => (
                 <BlogCard
                   key={blog.id}
                   id={blog.id}
